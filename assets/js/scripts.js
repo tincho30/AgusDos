@@ -371,329 +371,6 @@ $(function () {
 
     });
 
-    // Tabs de sobre mi
-    $('.tab-links-exp').on('click', '.item-link-exp', function () {
-
-        var tab3_id = $(this).attr('data-tab-exp');
-
-        $('.tab-links-exp .item-link-exp').removeClass('current-exp');
-        $(this).addClass('current-exp');
-
-        $('.tab-content-exp').fadeOut();
-        $("#" + tab3_id).fadeIn();
-
-    });
-
-    $('#tabs-ubicacion-nav li:first-child,#tabs-contratacion-arg-nav li:first-child,#tabs-contratacion-lat-nav li:first-child,#tabs-portfolio-mobile-nav li:first-child').addClass('active');
-    $('.tab-content').hide();
-    $('.tab-content:first').show();
-
-    // Click function
-    $('#tabs-ubicacion-nav li').click(function(){
-    $('#tabs-ubicacion-nav li').removeClass('active');
-    $(this).addClass('active');
-    $('.tab-content').hide();
-    
-    var activeTab = $(this).find('a').attr('href');
-    $(activeTab).fadeIn();
-    return false;
-    });
-
-    $('.tab-cont-content,.tab-cont-latam-content,.tab-portfolio-content').hide();
-    $('.tab-cont-content:first,.tab-cont-latam-content:first,.tab-portfolio-content:first').show();
-
-    $('#tabs-contratacion-arg-nav li').click(function(){
-        //$('#tabs-contratacion-arg-nav li').removeClass('active');
-        $(this).addClass('active');
-        $('.tab-cont-content').hide();
-        
-        var activeTabCont = $(this).find('a').attr('href');
-        $(activeTabCont).fadeIn();
-        return false;
-    });
-
-    $('#tabs-contratacion-lat-nav li').click(function(){
-        $('#tabs-contratacion-lat-nav li').removeClass('active');
-        $(this).addClass('active');
-        $('.tab-cont-latam-content').hide();
-        
-        var activeTabContLat = $(this).find('a').attr('href');
-        $(activeTabContLat).fadeIn();
-        return false;
-    });
-
-    
-
-    
-       const tabsContainer = document.querySelector('#tabs-portfolio-mobile-nav');
-    const slidersContainer = document.querySelector('#datos-portfolio');
-
-    if (tabsContainer && slidersContainer) {
-        const tabs = tabsContainer.querySelectorAll('.filter li a');
-        const sliders = slidersContainer.querySelectorAll('> div');
-
-        // Inicializar visibilidad: Mostrar solo el primer slider
-        sliders.forEach((slider, index) => {
-            if (index === 0) {
-                slider.classList.add('active');
-                slider.style.display = 'block';
-            } else {
-                slider.style.display = 'none';
-            }
-        });
-
-        // Manejar clic en tabs
-        tabs.forEach((tab) => {
-            tab.addEventListener('click', (e) => {
-                e.preventDefault();
-
-                // Ocultar todos los sliders
-                sliders.forEach((slider) => {
-                    slider.classList.remove('active');
-                    slider.style.display = 'none';
-                });
-
-                // Quitar clase activa de todas las tabs
-                tabs.forEach((t) => t.parentElement.classList.remove('active'));
-
-                // Mostrar el slider correspondiente
-                const targetId = tab.getAttribute('href');
-                const targetSlider = slidersContainer.querySelector(targetId);
-
-                if (targetSlider) {
-                    targetSlider.classList.add('active');
-                    targetSlider.style.display = 'block';
-                }
-
-                // Activar la tab seleccionada
-                tab.parentElement.classList.add('active');
-            });
-        });
-    }
-      
-        // Mostrar solo el primer slider por defecto
-        if (sliders.length > 0) {
-          sliders[0].style.display = 'block';
-          sliders[0].classList.add('active');
-        }
-     
-      
-        document.querySelectorAll('.tabs-portfolio-mobile li a').forEach(tab => {
-            tab.addEventListener('click', (e) => {
-                e.preventDefault();
-                
-                // Quitar clase activa de todos los tabs y sliders
-                document.querySelectorAll('.tabs-portfolio-mobile li').forEach(item => item.classList.remove('active'));
-                document.querySelectorAll('.slider-content').forEach(slider => slider.classList.remove('active'));
-                
-                // Agregar clase activa al tab y slider correspondiente
-                e.target.parentElement.classList.add('active');
-                const target = e.target.getAttribute('href');
-                document.querySelector(target).classList.add('active');
-            });
-        });
-        
-       
-// Mostrar solo RRSS al inicio
-$('.portfolio-category-mobile').hide(); // Ocultar todas las categorías
-$('#portfolio-rrss-mobile').show(); // Mostrar solo RRSS
-$('#portfolio-filters-mobile .filter-item-mobile').removeClass('active'); // Remover clases activas de filtros
-$('#portfolio-filters-mobile .filter-item-mobile[data-target="#portfolio-rrss-mobile"]').addClass('active'); // Activar filtro RRSS
-
-// Filtros
-$('#portfolio-filters-mobile .filter-item-mobile').on('click', function () {
-    // Cambiar la clase activa en los filtros
-    $('#portfolio-filters-mobile .filter-item-mobile').removeClass('active');
-    $(this).addClass('active');
-
-    // Mostrar la categoría correspondiente y ocultar las demás
-    const target = $(this).data('target');
-    $('.portfolio-category-mobile').removeClass('active').hide();
-    $(target).addClass('active').fadeIn();
-});
-
-
-
-
-
- // Inicialización de Swipers
- function initializeSwiper(selector, nextButton, prevButton) {
-    return new Swiper(selector, {
-        slidesPerView: 1,
-        spaceBetween: 30,
-        navigation: {
-            nextEl: nextButton,
-            prevEl: prevButton,
-        },
-    });
-}
-
-// Inicializa todos los Swipers
-const swipers = {
-    rrss: initializeSwiper('.rrss-swiper-mobile', '.rrss-controls-mobile .swiper-button-next', '.rrss-controls-mobile .swiper-button-prev'),
-    branding: initializeSwiper('.branding-swiper-mobile', '.branding-controls-mobile .swiper-button-next', '.branding-controls-mobile .swiper-button-prev'),
-    mailing: initializeSwiper('.mailing-swiper-mobile', '.mailing-controls-mobile .swiper-button-next', '.mailing-controls-mobile .swiper-button-prev'),
-    uxui: initializeSwiper('.uxui-swiper-mobile', '.uxui-controls-mobile .swiper-button-next', '.uxui-controls-mobile .swiper-button-prev'),
-};
-
-// Función para mostrar la categoría seleccionada
-function showCategory(target) {
-    // Oculta todas las categorías
-    $('.portfolio-category-mobile').removeClass('active');
-    // Muestra la categoría seleccionada
-    $(target).addClass('active');
-
-    // Recalcula Swiper para la categoría activa
-    const swiperKey = target.replace('#portfolio-', '').replace('-mobile', '');
-    if (swipers[swiperKey]) {
-        swipers[swiperKey].update();
-    }
-}
-
-// Evento para manejar el filtrado
-$('#portfolio-filters-mobile .filter-item-mobile').on('click', function () {
-    const target = $(this).data('target');
-    // Cambia la clase activa del filtro
-    $('#portfolio-filters-mobile .filter-item-mobile').removeClass('active');
-    $(this).addClass('active');
-    // Muestra la categoría correspondiente
-    showCategory(target);
-});
-
-
-
-
-   // Mostrar Argentina y preseleccionar 40 hs /sem al cargar
-$('#honorarios-tab-argentina').show(); // Mostrar solo Argentina inicialmente
-$('#honorarios-tab-latam').hide(); // Ocultar LATAM inicialmente
-$('#honorarios-tabs-contratacion-nav li:nth-child(3) a').addClass('active'); // Seleccionar 40 hs /sem
-$('.tab-cont-content').hide(); // Ocultar todos los contenidos
-$('#honorarios-tab-cont-tres').show(); // Mostrar contenido de 40 hs /sem para Argentina
-
-// Tabs de ubicación (Argentina / LATAM)
-$('#honorarios-tabs-ubicacion-nav li a').click(function (e) {
-    e.preventDefault();
-
-    // Cambiar estado de los tabs de ubicación
-    $('#honorarios-tabs-ubicacion-nav li a').removeClass('active');
-    $(this).addClass('active');
-
-    // Mostrar/Ocultar contenido según la selección
-    if ($(this).attr('href') === '#honorarios-tab-argentina') {
-        $('#honorarios-tab-argentina').show();
-        $('#honorarios-tab-latam').hide();
-
-        // Resetear Argentina a 40 hs /sem por defecto
-        $('#honorarios-tabs-contratacion-nav li a').removeClass('active');
-        $('#honorarios-tabs-contratacion-nav li:nth-child(3) a').addClass('active');
-        $('.tab-cont-content').hide();
-        $('#honorarios-tab-cont-tres').show();
-    } else if ($(this).attr('href') === '#honorarios-tab-latam') {
-        $('#honorarios-tab-argentina').hide();
-        $('#honorarios-tab-latam').show();
-
-        // Resetear LATAM a 40 hs /sem por defecto
-        $('#honorarios-tabs-contratacion-latam-nav li a').removeClass('active');
-        $('#honorarios-tabs-contratacion-latam-nav li:nth-child(3) a').addClass('active');
-        $('.honorarios-tab-cont-content').hide(); // Asegura ocultar correctamente
-        $('#honorarios-tab-cont-tres-latam').show();
-    }
-});
-
-// Tabs de contratación (Argentina)
-$('#honorarios-tabs-contratacion-nav li a').click(function (e) {
-    e.preventDefault();
-
-    // Cambiar estado de los tabs de contratación
-    $('#honorarios-tabs-contratacion-nav li a').removeClass('active');
-    $(this).addClass('active');
-
-    // Mostrar contenido correspondiente
-    $('.tab-cont-content').hide();
-    $($(this).attr('href')).show();
-});
-
-// Tabs de contratación (LATAM)
-$('#honorarios-tabs-contratacion-latam-nav li a').click(function (e) {
-    e.preventDefault();
-
-    // Cambiar estado de los tabs de contratación
-    $('#honorarios-tabs-contratacion-latam-nav li a').removeClass('active');
-    $(this).addClass('active');
-
-    // Mostrar contenido correspondiente
-    $('.honorarios-tab-cont-content').hide();
-    $($(this).attr('href')).show();
-});
-
-
-
-
-/* Tabs sobremi mobile */
-// Inicializar Swiper
- const sobreMiSwiper = new Swiper('.sobre-mi-mobile', {
-    slidesPerView: 1,
-    loop: true,
-    navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-    }
-});
-
-
-
-
-if ($(this).hasClass('slider-servicios-mobile')) {
-    var conf = {
-
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-
-
-        navigation: {
-            nextEl: '.testim-controls .swiper-button-next',
-            prevEl: '.testim-controls .swiper-button-prev'
-        },
-
-        breakpoints: {
-            0: {
-                slidesPerView: 1,
-            },
-            640: {
-                slidesPerView: 1,
-            },
-            768: {
-                slidesPerView: 1,
-            },
-            1024: {
-                slidesPerView: 1,
-            },
-        }
-    };
-};
-
-
-
- // Inicializar: Mostrar solo el primer filtro y ocultar los demás
- $('.gallery-portfolio-mobile > div').hide(); // Ocultar todos los elementos inicialmente
- $('.gallery-portfolio-mobile > .redes-mob').show(); // Mostrar el primer elemento (Redes Sociales)
-
- // Manejar clic en los filtros
- $('.filter span').click(function () {
-     // Cambiar el estado activo del filtro
-     $('.filter span').removeClass('active'); // Quitar la clase activa de todos los filtros
-     $(this).addClass('active'); // Agregar la clase activa al filtro seleccionado
-
-     // Obtener el filtro seleccionado
-     const filterClass = $(this).data('filter'); // Obtener el valor de data-filter
-
-     // Mostrar/Ocultar elementos
-     $('.gallery-portfolio-mobile > div').hide(); // Ocultar todos los elementos
-     $(filterClass).show(); // Mostrar los elementos que coinciden con el filtro
- });
-
 
     /* =============================================================================
     --------------------------------  Accordion  -----------------------------------
@@ -981,91 +658,70 @@ $(window).on("load", function () {
     -----------------------------  isotope Masonery   ------------------------------
     ============================================================================= */
 
-    /*
-var $gallery = $('#portfolio-gallery .portfolio-items').isotope({
-    itemSelector: '.portfolio-item', // Solo los elementos específicos del portafolio
-    layoutMode: 'fitRows'
-});
+    $('.gallery').isotope({
+        itemSelector: '.items'
+    });
 
+    var $gallery = $('.gallery').isotope();
 
-$('.filtering').on('click', 'span', function () {
-    var filterValue = $(this).attr('data-filter'); // Obtener el filtro seleccionado
-    $gallery.isotope({ filter: filterValue }); // Aplicar el filtro al portafolio
+    $('.filtering').on('click', 'span', function () {
+        var filterValue = $(this).attr('data-filter');
+        $gallery.isotope({ filter: filterValue });
+    });
+
+    $('.filtering').on('click', 'span', function () {
+        $(this).addClass('active').siblings().removeClass('active');
+    });
 
     
-    $(this).addClass('active').siblings().removeClass('active');
-});
+    
+    $('#tabs-ubicacion-nav li:first-child,#tabs-contratacion-arg-nav li:first-child,#tabs-contratacion-lat-nav li:first-child,#tabs-portfolio-mobile-nav li:first-child').addClass('active');
+    $('.tab-content').hide();
+    $('.tab-content:first').show();
 
-*/
-$('.gallery').isotope({
-    itemSelector: '.items'
-});
-
-var $gallery = $('.gallery').isotope();
-
-$('.filtering').on('click', 'span', function () {
-    var filterValue = $(this).attr('data-filter');
-    $gallery.isotope({ filter: filterValue });
-});
-
-$('.filtering').on('click', 'span', function () {
-    $(this).addClass('active').siblings().removeClass('active');
-});
-
-// Inicialización de estado inicial
-$('#tabs-ubicacion-nav li:first-child, #tabs-contratacion-arg-nav li:nth-child(3), #tabs-contratacion-lat-nav li:nth-child(3), #tabs-portfolio-mobile-nav li:first-child').addClass('active');
-$('.tab-content').hide();
-$('.tab-content:first').show();
-$('.tab-cont-content, .tab-cont-latam-content, .tab-portfolio-content').hide();
-$('.tab-portfolio-content').first().show();
-$('#tab_cont_tres, #tab_cont_tres_latam').show(); // Mostrar "40 hs /sem" por defecto
-
-// Click en tabs de ubicación
-$('#tabs-ubicacion-nav li').click(function () {
+    // Click function
+    $('#tabs-ubicacion-nav li').click(function(){
     $('#tabs-ubicacion-nav li').removeClass('active');
     $(this).addClass('active');
     $('.tab-content').hide();
-
+    
     var activeTab = $(this).find('a').attr('href');
     $(activeTab).fadeIn();
     return false;
-});
+    });
 
-// Click en tabs de contratación (ARG)
-$('#tabs-contratacion-arg-nav li').click(function () {
-    //$('#tabs-contratacion-arg-nav li').removeClass('active');
-    $(this).addClass('active');
-    $('.tab-cont-content').hide();
+    $('.tab-cont-content,.tab-cont-latam-content,.tab-portfolio-content').hide();
+    $('.tab-cont-content:first,.tab-cont-latam-content:first,.tab-portfolio-content:first').show();
 
-    var activeTabCont = $(this).find('a').attr('href');
-    $(activeTabCont).fadeIn();
-    return false;
-});
+    $('#tabs-contratacion-arg-nav li').click(function(){
+        $('#tabs-contratacion-arg-nav li').removeClass('active');
+        $(this).addClass('active');
+        $('.tab-cont-content').hide();
+        
+        var activeTabCont = $(this).find('a').attr('href');
+        $(activeTabCont).fadeIn();
+        return false;
+    });
 
-// Click en tabs de contratación (LATAM)
-$('#tabs-contratacion-lat-nav li').click(function () {
-    $('#tabs-contratacion-lat-nav li').removeClass('active');
-    $(this).addClass('active');
-    $('.tab-cont-latam-content').hide();
+    $('#tabs-contratacion-lat-nav li').click(function(){
+        $('#tabs-contratacion-lat-nav li').removeClass('active');
+        $(this).addClass('active');
+        $('.tab-cont-latam-content').hide();
+        
+        var activeTabContLat = $(this).find('a').attr('href');
+        $(activeTabContLat).fadeIn();
+        return false;
+    });
 
-    var activeTabContLat = $(this).find('a').attr('href');
-    $(activeTabContLat).fadeIn();
-    return false;
-});
-
-// Click en tabs de portfolio (mobile)
-$('#tabs-portfolio-mobile-nav li').click(function () {
-    $('#tabs-portfolio-mobile-nav li').removeClass('active');
-    $(this).addClass('active');
-    $('.tab-portfolio-content').hide();
-
-    var activeTabConPortfolio = $(this).find('a').attr('href');
-    $(activeTabConPortfolio).fadeIn();
-    return false;
-});
-
-$('#tabs-contratacion-arg-nav li').removeClass('active');
-    
+    $('#tabs-portfolio-mobile-nav li').click(function(){
+        $('#tabs-portfolio-mobile-nav li').removeClass('active');
+        $(this).addClass('active');
+        $('.tab-portfolio-content').hide();
+        
+        var activeTabConPortfolio = $(this).find('a').attr('href');
+        $(activeTabConPortfolio).fadeIn();
+        return false;
+    });
 
     /* =============================================================================
     -----------------------------  Contact Valdition   -----------------------------
@@ -1457,8 +1113,6 @@ $(function () {
                 }
             };
         };
-
-       
 //
         if ($(this).hasClass('testim-swiper3')) {
             var conf = {
@@ -1522,78 +1176,69 @@ $(function () {
             };
         };
 
-        
+        // Swiper de portfolio branding mobile
 
-        if ($(this).hasClass('her-swiper-container')) {
+        if ($(this).hasClass('portfolio-branding-swiper')) {
             var conf = {
-                navigation: {
-                    nextEl: '.her-swiper-controls .swiper-button-next',
-                    prevEl: '.her-swiper-controls .swiper-button-prev',
+
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
                 },
+
+                navigation: {
+                    nextEl: '.portfolio-branding-controls .swiper-button-next',
+                    prevEl: '.portfolio-branding-controls .swiper-button-prev'
+                },
+
                 breakpoints: {
-                    0: { // Mobile
+                    0: {
                         slidesPerView: 1,
                     },
                     640: {
-                        slidesPerView: 2,
+                        slidesPerView: 1,
                     },
                     768: {
+                        slidesPerView: 2,
+                    },
+                    1024: {
                         slidesPerView: 3,
                     },
-                    1024: { // Desktop
-                        slidesPerView: 5,
-                        spaceBetween: 20,
-                    },
-                },
+                }
             };
-        }
+        };
 
+        // Swiper de portfolio mailing mobile
 
-    // Swiper para videos
-// Inicializar Swiper para videos
-$('.swiper-container').each(function () {
-    if ($(this).hasClass('portfolio-slider')) {
-      new Swiper(this, {
-        navigation: {
-          nextEl: '.videos-next', // Clase personalizada para el botón "Siguiente"
-          prevEl: '.videos-prev', // Clase personalizada para el botón "Anterior"
-        },
-        spaceBetween: 20,
-        breakpoints: {
-          0: { slidesPerView: 1 }, // Mobile
-          768: { slidesPerView: 2, spaceBetween: 15 }, // Tablet
-          1024: { slidesPerView: 4, spaceBetween: 30 }, // Desktop
-        },
-      });
-    }
-  });
-  
-  
-  // Swiper para brief
-  $('.swiper-container').each(function () {
-    if ($(this).hasClass('portfolio-brief-slider')) {
-      new Swiper(this, {
-        navigation: {
-          nextEl: '.portfolio-brief-controls .brief-next',
-          prevEl: '.portfolio-brief-controls .brief-prev',
-        },
-        spaceBetween: 20,
-        breakpoints: {
-          0: { slidesPerView: 1 },
-          1024: { slidesPerView: 2 },
-        },
-      });
-    }
-  });
-  
-  
-          
-        
-        
-        
-        
-          
-        
+        if ($(this).hasClass('portfolio-mailing-swiper')) {
+            var conf = {
+
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+
+                navigation: {
+                    nextEl: '.portfolio-mailing-controls .swiper-button-next',
+                    prevEl: '.portfolio-mailing-controls .swiper-button-prev'
+                },
+
+                breakpoints: {
+                    0: {
+                        slidesPerView: 1,
+                    },
+                    640: {
+                        slidesPerView: 1,
+                    },
+                    768: {
+                        slidesPerView: 2,
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                    },
+                }
+            };
+        };
 
         // Swiper de portfolio uxui mobile
 
@@ -1850,5 +1495,3 @@ $(function () {
         });
     });
 })();
-
-
